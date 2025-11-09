@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Out & About HSV - Discover Rocket City</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 32px;
+        }
+
+        .header-text h1 {
+            font-size: 28px;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero h2 .highlight {
+            color: #fbbf24;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .search-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .search-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 5px;
+        }
+
+        .feature-toggles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .feature-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .feature-btn:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .feature-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .feature-btn.active .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-icon {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .search-button:hover {
+            background: #5568d3;
+        }
+
+        .search-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .reset-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .reset-button:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-count {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .toggle-map-btn {
+            padding: 8px 16px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .toggle-map-btn:hover {
+            background: #38a169;
+        }
+
+        .map-container {
+            display: none;
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .result-card.highlighted {
+            border: 3px solid #667eea;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .card-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .type-place {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .type-event {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .type-deal {
+            background: #fed7aa;
+            color: #92400e;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .card-address {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-details {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .rating {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c00;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .api-key-notice {
+            background: #fef3c7;
+            border: 2px solid #fbbf24;
+            color: #92400e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .api-key-notice strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .api-key-notice code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .toggle-map-btn {
+                margin-left: 0;
+            }
+
+            .feature-toggles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .feature-icon {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo">🚀</div>
+                <div class="header-text">
+                    <h1>Out & About HSV</h1>
+                    <p>Huntsville • Madison</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h2>Discover the Best of <span class="highlight">Rocket City</span></h2>
+            <p>Find the perfect places, events, and deals in Huntsville and Madison</p>
+            <p>based on your preferences and schedule.</p>
+        </div>
+
+        <!-- API Key Notice -->
+        <div class="api-key-notice" id="apiKeyNotice">
+            <strong>⚠️ Setup Required</strong>
+            <p>To use this app, you need a Google Places API key. Open this file in a text editor and replace <code>YOUR_GOOGLE_PLACES_API_KEY</code> with your actual API key (around line 850).</p>
+            <p style="margin-top: 10px;">Get your free API key at: <a href="https://developers.google.com/maps/documentation/places/web-service/get-api-key" target="_blank">Google Cloud Console</a></p>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-card">
+            <div class="search-title">
+                <span>🔍</span>
+                <span>Plan Your Visit</span>
+            </div>
+
+            <form id="searchForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>🕒</span>
+                        <span>When do you want to go?</span>
+                    </label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="date" id="date" class="form-input" required>
+                        <select id="time" class="form-input" required>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>📍</span>
+                        <span>Location</span>
+                    </label>
+                    <input type="text" id="location" class="form-input" placeholder="Madison, AL" value="Madison, AL" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>📏</span>
+                        <span>Search radius: <span id="radiusValue">10</span> miles</span>
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="radius" class="slider" min="1" max="50" value="10">
+                        <div class="slider-labels">
+                            <span>1 mile</span>
+                            <span>50 miles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>💰</span>
+                        <span>Price Level</span>
+                    </label>
+                    <select id="priceLevel" class="form-input">
+                        <option value="">Any Price</option>
+                        <option value="1">$ - Inexpensive</option>
+                        <option value="2">$$ - Moderate</option>
+                        <option value="3">$$$ - Expensive</option>
+                        <option value="4">$$$$ - Very Expensive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>✨</span>
+                        <span>Features & Amenities</span>
+                    </label>
+                    <div class="feature-toggles">
+                        <button type="button" class="feature-btn" data-feature="outdoor_seating">
+                            <span class="feature-icon">🌳</span>
+                            <span>Outdoor Seating</span>
+                        </button>
+                        <button type="button" class="feature-btn" data-feature="live_music">
+                            <span class="feature-icon">🎵</span>
+                            <span>Live Music</span>
+                        </button>
+                        <button type="button" class="feature-btn" data-feature="bar">
+                            <span class="feature-icon">🍺</span>
+                            <span>Bar / Happy Hour</span>
+                        </button>
+                        <button type="button" class="feature-btn" data-feature="family_friendly">
+                            <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                            <span>Family Friendly</span>
+                        </button>
+                        <button type="button" class="feature-btn" data-feature="romantic">
+                            <span class="feature-icon">💑</span>
+                            <span>Romantic</span>
+                        </button>
+                        <button type="button" class="feature-btn" data-feature="groups">
+                            <span class="feature-icon">👥</span>
+                            <span>Good for Groups</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button" id="searchButton">
+                    <span>🔍</span>
+                    <span>Find Places & Events</span>
+                </button>
+
+                <button type="button" class="reset-button" id="resetButton">
+                    Start New Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState" style="display: none;">
+            <div class="spinner"></div>
+            <div>Searching for the best places in Rocket City...</div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <!-- Results Header with Filters -->
+            <div class="results-header">
+                <div class="results-count" id="resultsCount">Found 0 results</div>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label class="filter-label">Type:</label>
+                        <select id="typeFilter" class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="place">Places</option>
+                            <option value="event">Events</option>
+                            <option value="deal">Deals</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Sort by:</label>
+                        <select id="sortFilter" class="filter-select">
+                            <option value="score">Relevance</option>
+                            <option value="distance">Distance</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                    </div>
+                    <button class="toggle-map-btn" id="toggleMapBtn">
+                        🗺️ Show Map
+                    </button>
+                </div>
+            </div>
+
+            <!-- Map Container -->
+            <div class="map-container" id="mapContainer">
+                <div id="map"></div>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid" id="resultsGrid"></div>
+
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <h3>No results found</h3>
+                <p>Try adjusting your search criteria or expanding your search radius</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Maps API - Key restricted to Maps & Geocoding only, domain-restricted -->
+    <!-- Places API searches now go through secure backend function (no key exposure!) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLLD1Sndvf0KevXt_kZJHfU4E_6ck4Thw&libraries=places&callback=initMap" async defer></script>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            DEFAULT_CENTER: { lat: 34.6993, lng: -86.7489 }, // Madison, AL
+        };
+
+        // Global variables
+        let map;
+        let markers = [];
+        let allResults = [];
+        let searchLocation = null;
+
+        // Initialize the app
+        function initApp() {
+            // Populate time dropdown with 15-minute intervals
+            populateTimeDropdown();
+            
+            // Set default date/time (2 hours from now, rounded to 15 min intervals)
+            const defaultDateTime = new Date();
+            defaultDateTime.setHours(defaultDateTime.getHours() + 2);
+            // Round to nearest 15 minutes
+            defaultDateTime.setMinutes(Math.round(defaultDateTime.getMinutes() / 15) * 15);
+            defaultDateTime.setSeconds(0);
+            defaultDateTime.setMilliseconds(0);
+            
+            document.getElementById('date').value = formatDateForInput(defaultDateTime);
+            document.getElementById('time').value = formatTimeForInput(defaultDateTime);
+
+            // Radius slider
+            const radiusSlider = document.getElementById('radius');
+            const radiusValue = document.getElementById('radiusValue');
+            radiusSlider.addEventListener('input', (e) => {
+                radiusValue.textContent = e.target.value;
+            });
+
+            // Search form
+            document.getElementById('searchForm').addEventListener('submit', handleSearch);
+
+            // Reset button
+            document.getElementById('resetButton').addEventListener('click', resetSearch);
+
+            // Filters
+            document.getElementById('typeFilter').addEventListener('change', applyFilters);
+            document.getElementById('sortFilter').addEventListener('change', applyFilters);
+
+            // Toggle map
+            document.getElementById('toggleMapBtn').addEventListener('click', toggleMap);
+
+            // Feature toggles
+            document.querySelectorAll('.feature-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+
+            // Hide API notice if key is configured (using backend now)
+            document.getElementById('apiKeyNotice').style.display = 'none';
+        }
+
+        // Initialize Google Map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: CONFIG.DEFAULT_CENTER,
+                zoom: 12,
+                styles: [
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'off' }]
+                    }
+                ]
+            });
+        }
+
+        // Format date for input (YYYY-MM-DD)
+        function formatDateForInput(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Format time for input (HH:MM)
+        function formatTimeForInput(date) {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Populate time dropdown with 15-minute intervals
+        function populateTimeDropdown() {
+            const timeSelect = document.getElementById('time');
+            timeSelect.innerHTML = ''; // Clear existing options
+            
+            // Generate all times in 15-minute intervals
+            for (let hour = 0; hour < 24; hour++) {
+                for (let minute = 0; minute < 60; minute += 15) {
+                    const hourStr = String(hour).padStart(2, '0');
+                    const minuteStr = String(minute).padStart(2, '0');
+                    const timeValue = `${hourStr}:${minuteStr}`;
+                    
+                    // Format for display (12-hour format)
+                    const displayHour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+                    const ampm = hour < 12 ? 'AM' : 'PM';
+                    const displayText = `${displayHour}:${minuteStr} ${ampm}`;
+                    
+                    const option = document.createElement('option');
+                    option.value = timeValue;
+                    option.textContent = displayText;
+                    timeSelect.appendChild(option);
+                }
+            }
+        }
+
+        // Format datetime for input (kept for compatibility)
+        function formatDateTimeLocal(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // Handle search
+        async function handleSearch(e) {
+            e.preventDefault();
+
+            // Get form values
+            const location = document.getElementById('location').value;
+            const radius = parseInt(document.getElementById('radius').value);
+            const priceLevel = document.getElementById('priceLevel').value;
+            
+            // Get selected features
+            const selectedFeatures = Array.from(document.querySelectorAll('.feature-btn.active'))
+                .map(btn => btn.dataset.feature);
+
+            // Show loading
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('resultsSection').classList.remove('active');
+
+            try {
+                // Geocode the location
+                searchLocation = await geocodeAddress(location);
+
+                // Search for places
+                const results = await searchPlaces(searchLocation, radius, priceLevel, selectedFeatures);
+
+                // Store results
+                allResults = results;
+
+                // Display results
+                displayResults(results);
+
+                // Show results section
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('resultsSection').classList.add('active');
+
+                // Scroll to results
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('Search error:', error);
+                alert('Search failed: ' + error.message);
+                document.getElementById('loadingState').style.display = 'none';
+            }
+        }
+
+        // Geocode address
+        async function geocodeAddress(address) {
+            return new Promise((resolve, reject) => {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: address }, (results, status) => {
+                    if (status === 'OK' && results[0]) {
+                        resolve({
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng(),
+                            formatted: results[0].formatted_address
+                        });
+                    } else {
+                        reject(new Error('Could not find location'));
+                    }
+                });
+            });
+        }
+
+        // Search places using Backend API (secure!)
+        async function searchPlaces(location, radiusMiles, priceLevel, features) {
+            const radiusMeters = Math.round(radiusMiles * 1609.34); // Convert miles to meters
+
+            // Build keyword query based on features
+            let queryTerms = [];
+            
+            // Add feature-specific terms
+            if (features.includes('outdoor_seating')) {
+                queryTerms.push('patio', 'outdoor');
+            }
+            if (features.includes('live_music')) {
+                queryTerms.push('live music', 'entertainment', 'venue');
+            }
+            if (features.includes('bar')) {
+                queryTerms.push('bar', 'happy hour', 'drinks', 'cocktails');
+            }
+            if (features.includes('family_friendly')) {
+                queryTerms.push('family', 'kids');
+            }
+            if (features.includes('romantic')) {
+                queryTerms.push('romantic', 'fine dining', 'upscale');
+            }
+            if (features.includes('groups')) {
+                queryTerms.push('groups', 'large parties');
+            }
+
+            // Create unique keyword query
+            const keyword = queryTerms.length > 0 ? [...new Set(queryTerms)].join(' ') : '';
+
+            try {
+                // Call backend function (API key is secure!)
+                const response = await fetch('/.netlify/functions/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        location: `${location.lat},${location.lng}`,
+                        radius: radiusMeters,
+                        priceLevel: priceLevel ? parseInt(priceLevel) : null,
+                        keyword: keyword,
+                        openNow: false  // Could add UI toggle for this later
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Backend API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (!data.results || data.results.length === 0) {
+                    return [];
+                }
+
+                // Format results to match our app's format
+                const formattedResults = data.results.map(place => {
+                    const distance = calculateDistance(
+                        location.lat,
+                        location.lng,
+                        place.geometry.location.lat,
+                        place.geometry.location.lng
+                    );
+
+                    const score = calculateScore(distance, place.rating || 0, place.price_level);
+
+                    return {
+                        id: place.place_id,
+                        name: place.name,
+                        type: 'place',
+                        address: place.vicinity || 'Address not available',
+                        location: {
+                            lat: place.geometry.location.lat,
+                            lng: place.geometry.location.lng
+                        },
+                        distance: distance,
+                        rating: place.rating || 0,
+                        userRatingsTotal: place.user_ratings_total || 0,
+                        priceLevel: place.price_level,
+                        isOpen: place.opening_hours?.open_now || null,
+                        photos: place.photos,
+                        score: score
+                    };
+                });
+
+                return formattedResults;
+
+            } catch (error) {
+                console.error('Search error:', error);
+                throw new Error('Failed to search places: ' + error.message);
+            }
+        }
+
+        // Calculate distance between two points (Haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 3959; // Earth's radius in miles
+            const dLat = toRad(lat2 - lat1);
+            const dLon = toRad(lon2 - lon1);
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function toRad(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        // Calculate score
+        function calculateScore(distance, rating, priceLevel) {
+            const maxDistance = 50;
+            const distanceScore = ((maxDistance - Math.min(distance, maxDistance)) / maxDistance) * 50;
+            const ratingScore = (rating / 5) * 40;
+            
+            // Bonus points for having price level info
+            const priceLevelBonus = priceLevel ? 10 : 0;
+            
+            return Math.round(distanceScore + ratingScore + priceLevelBonus);
+        }
+
+        // Display results
+        function displayResults(results) {
+            const grid = document.getElementById('resultsGrid');
+            const count = document.getElementById('resultsCount');
+            const noResults = document.getElementById('noResults');
+
+            grid.innerHTML = '';
+            clearMarkers();
+
+            if (results.length === 0) {
+                noResults.style.display = 'block';
+                grid.style.display = 'none';
+                count.textContent = 'No results found';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            grid.style.display = 'grid';
+            count.textContent = `Found ${results.length} result${results.length !== 1 ? 's' : ''}`;
+
+            results.forEach((result, index) => {
+                const card = createResultCard(result, index);
+                grid.appendChild(card);
+                addMarker(result, index);
+            });
+
+            // Center map on search location
+            if (searchLocation) {
+                map.setCenter(new google.maps.LatLng(searchLocation.lat, searchLocation.lng));
+                map.setZoom(12);
+            }
+        }
+
+        // Create result card
+        function createResultCard(result, index) {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            card.dataset.index = index;
+
+            const typeClass = `type-${result.type}`;
+
+            let statusIcon = '';
+            if (result.isOpen !== null) {
+                statusIcon = result.isOpen ? '<span style="color: #10b981;">● Open</span>' : '<span style="color: #ef4444;">● Closed</span>';
+            }
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="card-type ${typeClass}">${result.type}</span>
+                </div>
+                <div class="card-title">${result.name}</div>
+                <div class="card-address">
+                    <span>📍</span>
+                    <span>${result.address}</span>
+                </div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span>📏</span>
+                        <span>${result.distance.toFixed(1)} mi</span>
+                    </div>
+                    ${result.rating > 0 ? `
+                        <div class="detail-item">
+                            <span>⭐</span>
+                            <span class="rating">${result.rating.toFixed(1)}</span>
+                            <span>(${result.userRatingsTotal})</span>
+                        </div>
+                    ` : ''}
+                    ${result.priceLevel ? `
+                        <div class="detail-item">
+                            <span>${'$'.repeat(result.priceLevel)}</span>
+                        </div>
+                    ` : ''}
+                    ${statusIcon ? `
+                        <div class="detail-item">
+                            ${statusIcon}
+                        </div>
+                    ` : ''}
+                    <div class="detail-item">
+                        <span>🎯</span>
+                        <span>Score: ${result.score}</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="openInMaps('${result.name}', ${result.location.lat}, ${result.location.lng})">
+                        Directions
+                    </button>
+                    <button class="btn btn-secondary" onclick="highlightMarker(${index})">
+                        Show on Map
+                    </button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Add marker to map
+        function addMarker(result, index) {
+            const marker = new google.maps.Marker({
+                position: { lat: result.location.lat, lng: result.location.lng },
+                map: map,
+                title: result.name,
+                label: {
+                    text: (index + 1).toString(),
+                    color: 'white',
+                    fontSize: '12px',
+                    fontWeight: 'bold'
+                },
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: result.type === 'place' ? '#3b82f6' : result.type === 'event' ? '#10b981' : '#f59e0b',
+                    fillOpacity: 1,
+                    strokeColor: 'white',
+                    strokeWeight: 2,
+                    scale: 12
+                }
+            });
+
+            marker.addListener('click', () => {
+                highlightCard(index);
+            });
+
+            markers.push(marker);
+        }
+
+        // Clear markers
+        function clearMarkers() {
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+        }
+
+        // Highlight marker
+        function highlightMarker(index) {
+            // Show map if hidden
+            const mapContainer = document.getElementById('mapContainer');
+            if (!mapContainer.classList.contains('active')) {
+                toggleMap();
+            }
+
+            // Pan to marker
+            const result = allResults[index];
+            map.panTo({ lat: result.location.lat, lng: result.location.lng });
+            map.setZoom(15);
+
+            // Animate marker
+            const marker = markers[index];
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(() => marker.setAnimation(null), 1500);
+
+            // Scroll to map
+            mapContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Highlight card
+        function highlightCard(index) {
+            // Remove existing highlights
+            document.querySelectorAll('.result-card').forEach(card => {
+                card.classList.remove('highlighted');
+            });
+
+            // Add highlight
+            const card = document.querySelector(`[data-index="${index}"]`);
+            if (card) {
+                card.classList.add('highlighted');
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Remove highlight after 3 seconds
+                setTimeout(() => card.classList.remove('highlighted'), 3000);
+            }
+        }
+
+        // Open in Google Maps
+        function openInMaps(name, lat, lng) {
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}&query_place_id=${lat},${lng}`;
+            window.open(url, '_blank');
+        }
+
+        // Toggle map
+        function toggleMap() {
+            const mapContainer = document.getElementById('mapContainer');
+            const btn = document.getElementById('toggleMapBtn');
+
+            if (mapContainer.classList.contains('active')) {
+                mapContainer.classList.remove('active');
+                btn.textContent = '🗺️ Show Map';
+            } else {
+                mapContainer.classList.add('active');
+                btn.textContent = '🗺️ Hide Map';
+                // Trigger resize event to ensure map renders correctly
+                setTimeout(() => {
+                    google.maps.event.trigger(map, 'resize');
+                    if (searchLocation) {
+                        map.setCenter(new google.maps.LatLng(searchLocation.lat, searchLocation.lng));
+                    }
+                }, 100);
+            }
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+
+            let filtered = [...allResults];
+
+            // Apply type filter
+            if (typeFilter !== 'all') {
+                filtered = filtered.filter(r => r.type === typeFilter);
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                if (sortFilter === 'distance') {
+                    return a.distance - b.distance;
+                } else if (sortFilter === 'rating') {
+                    return b.rating - a.rating;
+                } else { // score
+                    return b.score - a.score;
+                }
+            });
+
+            displayResults(filtered);
+        }
+
+        // Reset search
+        function resetSearch() {
+            // Reset form
+            const defaultDateTime = new Date();
+            defaultDateTime.setHours(defaultDateTime.getHours() + 2);
+            // Round to nearest 15 minutes
+            defaultDateTime.setMinutes(Math.round(defaultDateTime.getMinutes() / 15) * 15);
+            defaultDateTime.setSeconds(0);
+            defaultDateTime.setMilliseconds(0);
+            
+            document.getElementById('date').value = formatDateForInput(defaultDateTime);
+            document.getElementById('time').value = formatTimeForInput(defaultDateTime);
+            document.getElementById('location').value = 'Madison, AL';
+            document.getElementById('radius').value = '10';
+            document.getElementById('radiusValue').textContent = '10';
+            document.getElementById('priceLevel').value = '';
+            
+            // Reset feature toggles
+            document.querySelectorAll('.feature-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Reset filters
+            document.getElementById('typeFilter').value = 'all';
+            document.getElementById('sortFilter').value = 'score';
+
+            // Hide results
+            document.getElementById('resultsSection').classList.remove('active');
+            allResults = [];
+            clearMarkers();
+
+            // Reset map
+            if (map) {
+                map.setCenter(CONFIG.DEFAULT_CENTER);
+                map.setZoom(12);
+            }
+
+            // Hide map
+            const mapContainer = document.getElementById('mapContainer');
+            if (mapContainer.classList.contains('active')) {
+                toggleMap();
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>

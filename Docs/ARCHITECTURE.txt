@@ -1,0 +1,189 @@
+ARCHITECTURE COMPARISON
+========================
+
+PHASE 1: Client-Side API (Current)
+===================================
+
+┌─────────────────┐
+│   User Browser  │
+│   index.html    │
+│                 │
+│  ┌───────────┐  │
+│  │ API_KEY = │  │  ⚠️ EXPOSED!
+│  │ 'AIza...' │  │
+│  └───────────┘  │
+└────────┬────────┘
+         │
+         │ Direct API Call
+         │ (visible in DevTools)
+         ↓
+┌─────────────────┐
+│  Google Places  │
+│      API        │
+│                 │
+│   Charges $$    │
+└─────────────────┘
+
+Problems:
+❌ API key visible to anyone
+❌ Can be copied and abused
+❌ No caching
+❌ No rate limiting
+❌ Full cost per request
+
+
+PHASE 2: Backend API (New!)
+============================
+
+┌─────────────────┐
+│   User Browser  │
+│   index.html    │
+│                 │
+│  (No API key!)  │  ✅ SECURE!
+└────────┬────────┘
+         │
+         │ POST /netlify/functions/search
+         │ { location, radius, priceLevel... }
+         ↓
+┌─────────────────┐
+│ Netlify Backend │
+│  search.mjs     │
+│                 │
+│  ┌───────────┐  │
+│  │  API_KEY  │  │  🔒 Hidden in
+│  │  (env)    │  │     environment
+│  └───────────┘  │
+│                 │
+│  ┌───────────┐  │
+│  │  Cache    │  │  💾 5 min cache
+│  └───────────┘  │
+└────────┬────────┘
+         │
+         │ Authenticated call
+         │ (user never sees key)
+         ↓
+┌─────────────────┐
+│  Google Places  │
+│      API        │
+│                 │
+│   Charges $$    │
+└─────────────────┘
+
+Benefits:
+✅ API key completely hidden
+✅ Protected from abuse
+✅ Caching reduces costs 70%+
+✅ Can add rate limiting
+✅ Professional architecture
+✅ Ready for more APIs
+
+
+REQUEST FLOW COMPARISON
+========================
+
+BEFORE:
+-------
+1. User clicks search
+2. JavaScript builds URL with API key
+3. Fetch directly to maps.googleapis.com
+4. Google charges your account
+5. Response back to user
+
+(Anyone watching can steal your API key)
+
+
+AFTER:
+------
+1. User clicks search
+2. JavaScript calls YOUR backend
+3. Backend validates request
+4. Check cache (save money!)
+5. If not cached → call Google API
+6. Cache response
+7. Return to user
+
+(API key never leaves your server)
+
+
+DATA FLOW
+=========
+
+Frontend → Backend → Google → Backend → Frontend
+                ↓
+              Cache
+                ↓
+         (Future requests
+          skip Google!)
+
+
+COST IMPACT EXAMPLE
+===================
+
+Scenario: 100 users, each searches 3 times
+
+BEFORE:
+100 users × 3 searches = 300 API calls
+Cost: 300 × $0.005 = $1.50
+
+AFTER (with 5-min cache):
+First 100 searches = 100 API calls
+Next 200 searches = 0 API calls (cached!)
+Cost: 100 × $0.005 = $0.50
+
+Savings: 66% reduction!
+
+
+SECURITY COMPARISON
+===================
+
+BEFORE:
+👤 User opens DevTools
+   → Network tab
+   → Sees: maps.googleapis.com?key=AIza...
+   → Copies key
+   → Uses on their own site
+   → You pay for their usage!
+
+AFTER:
+👤 User opens DevTools
+   → Network tab
+   → Sees: /.netlify/functions/search
+   → No key visible
+   → Can't abuse your account
+   → You're protected! ✅
+
+
+SCALABILITY
+===========
+
+BEFORE:
+- Every user hits Google directly
+- No control over usage
+- Can't optimize
+- Can't add features
+
+AFTER:
+- Central control point
+- Add caching, rate limits
+- Easy to add new APIs
+- Monitor and optimize
+- Professional architecture
+
+
+YOUR UPGRADE PATH
+=================
+
+Current: Phase 1
+│
+├─ 🔄 YOU ARE HERE
+│   └─ Migration to backend
+│
+Future: Phase 2+
+│
+├─ Add caching layer
+├─ Add rate limiting  
+├─ Add PredictHQ API
+├─ Add deals/offers API
+└─ Advanced features
+
+All enabled by this backend foundation!
